@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>jQuery Boilerplate</title>
-		<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="../src/jquery.boilerplate.js"></script>
-	</head>
-	<body>
-		<div id="element"></div>
-		<script>
-			$( function() {
-				$( "#element" ).defaultPluginName( {
-					propertyName: "a custom value"
-				} );
-			} );
-		</script>
-	</body>
+<head>
+	<title>jQuery Boilerplate</title>
+	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="../src/sync-loader.js"></script>
+</head>
+<body>
+	<div id="element"></div>
+
+	<script data-sync-loader="script1.js" data-phase="1"></script>
+	<script data-sync-loader="script2.js" data-phase="1"></script>
+
+	<script data-sync-loader="script3.js" data-phase="2"></script>
+
+	<script data-sync-loader="script-long.js" data-phase="3"></script>
+
+
+</body>
 </html>

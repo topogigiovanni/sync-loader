@@ -1,9 +1,9 @@
-module.exports = function( grunt ) {
+module.exports = function(grunt) {
 
-	grunt.initConfig( {
+	grunt.initConfig({
 
 		// Import package manifest
-		pkg: grunt.file.readJSON( "package.json" ),
+		pkg: grunt.file.readJSON("package.json"),
 
 		// Banner definitions
 		meta: {
@@ -23,14 +23,14 @@ module.exports = function( grunt ) {
 				banner: "<%= meta.banner %>"
 			},
 			dist: {
-				src: [ "src/jquery.boilerplate.js" ],
-				dest: "dist/jquery.boilerplate.js"
+				src: ["src/sync-loader.js"],
+				dest: "dist/sync-loader.js"
 			}
 		},
 
 		// Lint definitions
 		jshint: {
-			files: [ "src/jquery.boilerplate.js", "test/**/*" ],
+			files: ["src/sync-loader.js", "test/**/*"],
 			options: {
 				jshintrc: ".jshintrc"
 			}
@@ -46,20 +46,11 @@ module.exports = function( grunt ) {
 		// Minify definitions
 		uglify: {
 			dist: {
-				src: [ "dist/jquery.boilerplate.js" ],
-				dest: "dist/jquery.boilerplate.min.js"
+				src: ["dist/sync-loader.js"],
+				dest: "dist/sync-loader.min.js"
 			},
 			options: {
 				banner: "<%= meta.banner %>"
-			}
-		},
-
-		// CoffeeScript compilation
-		coffee: {
-			compile: {
-				files: {
-					"dist/jquery.boilerplate.js": "src/jquery.boilerplate.coffee"
-				}
 			}
 		},
 
@@ -69,14 +60,14 @@ module.exports = function( grunt ) {
 				configFile: "karma.conf.js",
 				background: true,
 				singleRun: false,
-				browsers: [ "PhantomJS", "Firefox" ]
+				browsers: ["PhantomJS", "Firefox"]
 			},
 
 			//continuous integration mode: run tests once in PhantomJS browser.
 			travis: {
 				configFile: "karma.conf.js",
 				singleRun: true,
-				browsers: [ "PhantomJS" ]
+				browsers: ["PhantomJS"]
 			}
 		},
 
@@ -84,22 +75,21 @@ module.exports = function( grunt ) {
 		// Better than calling grunt a million times
 		// (call 'grunt watch')
 		watch: {
-			files: [ "src/*", "test/**/*" ],
-			tasks: [ "default" ]
+			files: ["src/*", "test/**/*"],
+			tasks: ["default"]
 		}
 
-	} );
+	});
 
-	grunt.loadNpmTasks( "grunt-contrib-concat" );
-	grunt.loadNpmTasks( "grunt-contrib-jshint" );
-	grunt.loadNpmTasks( "grunt-jscs" );
-	grunt.loadNpmTasks( "grunt-contrib-uglify" );
-	grunt.loadNpmTasks( "grunt-contrib-coffee" );
-	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-karma" );
+	grunt.loadNpmTasks("grunt-contrib-concat");
+	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.loadNpmTasks("grunt-jscs");
+	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-karma");
 
-	grunt.registerTask( "travis", [ "jshint", "karma:travis" ] );
-	grunt.registerTask( "lint", [ "jshint", "jscs" ] );
-	grunt.registerTask( "build", [ "concat", "uglify" ] );
-	grunt.registerTask( "default", [ "jshint", "build", "karma:unit:run" ] );
+	grunt.registerTask("travis", ["jshint", "karma:travis"]);
+	grunt.registerTask("lint", ["jshint", "jscs"]);
+	grunt.registerTask("build", ["concat", "uglify"]);
+	grunt.registerTask("default", ["jshint", "build", "karma:unit:run"]);
 };
