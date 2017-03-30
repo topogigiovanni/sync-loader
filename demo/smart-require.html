@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Boilerplate</title>
+	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="../bower_components/smart-require/dist/smartRequire.full.min.js"></script>
+	<script src="../src/sync-loader.js"></script>
+</head>
+<body>
+	<div id="element"></div>
+
+	<script data-sync-loader="script1.js" data-phase="1"></script>
+	<script data-sync-loader="script2.js" data-phase="1"></script>
+
+	<script data-sync-loader="script3.js" data-phase="2"></script>
+
+	<script data-sync-loader="script-long.js" data-phase="3"></script>
+
+	<script>
+		$(document).on('syncloader.phase.1', function(){
+			console.log('on syncloader');
+		});
+		$(document).on('syncloader.phase.2', function(){
+			console.log('on syncloader 2');
+		});
+		$(document).on('syncloader.phase.3', function(){
+			console.log('on syncloader 3');
+		});
+	</script>
+
+</body>
+</html>

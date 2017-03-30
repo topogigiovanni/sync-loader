@@ -1,4 +1,3 @@
-;
 (function($, window, document, undefined) {
 
 	'use strict';
@@ -16,7 +15,7 @@
 
 	function checkPhaseCompleted() {
 		phase.loadedCount++;
-		if(phase.loadedCount === phase.toLoadCount){
+		if (phase.loadedCount === phase.toLoadCount) {
 			finishPhase();
 		}
 	}
@@ -30,6 +29,35 @@
 
 	function trigger(number) {
 		$document.trigger('syncloader.phase.' + number);
+	}
+
+	function loadScripts($scripts) {
+		if (!!window['smartRequire']) {
+			// smartRequire load mode
+			var srcList = [];
+			$scripts
+				.each(function() {
+					srcList.push({
+						url: $(this).data('sync-loader')
+					});
+				});
+
+			smartRequire
+				.require
+				.apply(smartRequire, srcList)
+				.then(function() {
+					finishPhase();
+				}, function(error) {
+					// There was an error fetching the script
+					console.log(error);
+				});
+		} else {
+			// default load mode
+			$scripts
+				.each(function() {
+					$(this).attr('src', $(this).data('sync-loader'));
+				});
+		}
 	}
 
 	function finishPhase() {
@@ -49,16 +77,18 @@
 			finished: false
 		});
 
-		if(!phase.toLoadCount){
+		if (!phase.toLoadCount) {
 			// end execution
 			phase.finished = true;
 			return;
 		}
 
-		$toLoaded
-			.each(function() {
-				$(this).attr('src', $(this).data('sync-loader'));
-			});
+		loadScripts($toLoaded);
+
+		// $toLoaded
+		// 	.each(function() {
+		// 		$(this).attr('src', $(this).data('sync-loader'));
+		// 	});
 	}
 
 	function init() {

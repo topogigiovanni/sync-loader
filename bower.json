@@ -15,7 +15,8 @@
   ],
   "main": "src/jquery.boilerplate.js",
   "dependencies": {
-    "jquery": "1"
+    "jquery": "1",
+    "smart-require": "topogigiovanni/smart-require"
   },
   "ignore": [
     "npm-debug.log",
