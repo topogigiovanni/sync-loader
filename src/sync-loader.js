@@ -13,22 +13,25 @@
 		finished: false
 	};
 
-	function checkPhaseCompleted() {
-		phase.loadedCount++;
-		if (phase.loadedCount === phase.toLoadCount) {
-			finishPhase();
-		}
+	function checkPhaseStatus() {	
+		return (++phase.loadedCount) === phase.toLoadCount;
 	}
 
 	function bindScriptOnLoad() {
 		$scripts.on('load', function() {
 			$(this).addClass('sync-loaded');
-			checkPhaseCompleted();
+			if(checkPhaseStatus()) {
+				finishPhase();
+			};
 		});
 	}
 
-	function trigger(number) {
-		$document.trigger('syncloader.phase.' + number);
+	function triggerEvent(number) {
+		dispatchEvent('syncloader.phase.' + number);
+	}
+	
+	function dispatchEvent(name) {
+		$document.trigger(name);
 	}
 
 	function loadScripts($scripts) {
@@ -61,7 +64,7 @@
 	}
 
 	function finishPhase() {
-		trigger(phase.number);
+		triggerEvent(phase.number);
 		phase.finished = true;
 		startPhase(++phase.number);
 	}
@@ -85,10 +88,6 @@
 
 		loadScripts($toLoaded);
 
-		// $toLoaded
-		// 	.each(function() {
-		// 		$(this).attr('src', $(this).data('sync-loader'));
-		// 	});
 	}
 
 	function init() {
@@ -97,7 +96,7 @@
 		$document = $(document);
 		$scripts = $('[data-sync-loader]');
 
-		// login
+		// logic
 		bindScriptOnLoad();
 		startPhase(1);
 
