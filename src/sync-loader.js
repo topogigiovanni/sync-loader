@@ -87,11 +87,9 @@
 		}
 
 		loadScripts($toLoaded);
-
 	}
 
 	function init() {
-
 		// define vars
 		$document = $(document);
 		$scripts = $('[data-sync-loader]');
@@ -99,7 +97,6 @@
 		// logic
 		bindScriptOnLoad();
 		startPhase(1);
-
 	}
 
 	$(document).ready(init);
