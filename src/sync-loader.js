@@ -38,7 +38,8 @@
 			$scripts
 				.each(function() {
 					srcList.push({
-						url: $(this).data('sync-loader')
+						url: $(this).data('sync-loader'),
+						skipCache: $(this).data('smart-require-skipcache')
 					});
 				});
 
